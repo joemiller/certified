@@ -49,6 +49,9 @@ openssl x509 -in "etc/ssl/certs/ca.crt" -noout -text |
 grep -E -q '(RSA )?Public[ -]Key: \(4096 bit\)'
 openssl x509 -in "etc/ssl/certs/ca.crt" -noout -text |
 grep -A"3" "X509v3 CRL Distribution Points" |
+grep -q "http://example.com/ca.crl"
+openssl x509 -in "etc/ssl/certs/root-ca.crt" -noout -text |
+grep -A"3" "X509v3 CRL Distribution Points" |
 grep -q "http://example.com/root-ca.crl"
 openssl x509 -in "etc/ssl/certs/ca.crt" -noout -text |
 grep -q "OCSP - URI:http://ocsp.example.com"
@@ -189,7 +192,7 @@ certified CN="Intermediate Revoked" && false
 certified-ca --root-password="root-password" CN="Certified CA"
 openssl x509 -in "etc/ssl/certs/ca.crt" -noout -text |
 grep -A"3" "X509v3 CRL Distribution Points" |
-grep -q "http://example.com/root-ca.crl"
+grep -q "http://example.com/ca.crl"
 certified CN="Intermediate Regenerated"
 openssl x509 -in "etc/ssl/certs/intermediate-regenerated.crt" -noout -text |
 grep -A"3" "X509v3 CRL Distribution Points" |
