@@ -134,6 +134,7 @@ prompt = no
 [x509_extensions]
 EOF
     echo "basicConstraints = critical, CA:TRUE, pathlen:1"
+    if_echo "$ROOT_CRL_URL" "crlDistributionPoints = URI:$ROOT_CRL_URL"
     cat <<EOF
 keyUsage = critical, cRLSign, keyCertSign, nonRepudiation
 subjectKeyIdentifier = hash
@@ -160,7 +161,7 @@ then
     fi
 fi
 
-certified-csr --bits="$BITS" --ca --crl-url="$ROOT_CRL_URL" --days="$DAYS" --db="." $ENCRYPT --issuer="$CN" --issuer-name="root-ca" --name="ca" --ocsp-url="$OCSP_URL" --password="$INTERMEDIATE_PASSWORD" C="$C" CN="$CN" L="$L" O="$O" ST="$ST"
+certified-csr --bits="$BITS" --ca --crl-url="$CRL_URL" --days="$DAYS" --db="." $ENCRYPT --issuer="$CN" --issuer-name="root-ca" --name="ca" --ocsp-url="$OCSP_URL" --password="$INTERMEDIATE_PASSWORD" C="$C" CN="$CN" L="$L" O="$O" ST="$ST"
 certified-crt --ca-password="$ROOT_PASSWORD" --days="$DAYS" --db="." --name="ca" CN="$CN"
 
 git init -q
