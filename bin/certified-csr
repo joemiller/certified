@@ -129,12 +129,12 @@ CN = $CN
 
 [policy_match]
 commonName = supplied
-countryName = match
+countryName = supplied
 emailAddress = optional
-localityName = match
+localityName = optional
 organizationalUnitName = optional
-organizationName = match
-stateOrProvinceName = match
+organizationName = supplied
+stateOrProvinceName = supplied
 
 [req]
 default_bits = $BITS
